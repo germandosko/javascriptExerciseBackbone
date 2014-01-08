@@ -12,25 +12,23 @@
 	</head>
 	<body>
 
-		<!-- Plantilla para mostrar un solo producto -->
 		<textarea id="show-product-template" style="display:none">
 			<div id="show_product_images">
 				<img class="image" src="'<%= product.image %>'" />	
 			</div>
-			<span id="show_product_title">'<%= product.title %>'</span>
-			<span id="show_product_description">'<%= product.description%>'</span>
+			<span id="show_product_title"><%= product.title %></span>
+			<span id="show_product_description"><%= product.description%></span>
 			<div>
-				<span id="show_product_rank">Rank # '<%= product.featured_rank %>'</span>
-				<span id="show_product_views">Views: '<%= product.views %>'</span>
+				<span id="show_product_rank">Rank # <%= product.featured_rank %></span>
+				<span id="show_product_views">Views: <%= product.views %></span>
 			</div>
 			<div>
-				<span id="show_product_price">$ '<%= product.price %>'</span>
-				<span id="show_product_currency">'<%= product.currency_code %>'</span>
+				<span id="show_product_price">$ <%= product.price %></span>
+				<span id="show_product_currency"><%= product.currency_code %></span>
 			</div>
 			<div class="clearfix"></div>
 		</textarea>	
 
-		<!-- Plantilla para la aplicación -->
 		<textarea id="single_product_template" style="display:none">
 			<div class="product_content" id="'<%= product.listing_id %>'">
 				<div class="options">
@@ -38,31 +36,33 @@
 					<a class="option_delete" href="javascript:void(0);">Delete</a>
 				</div>
 				<img class="image" src="<%= product.imageUrl %>" />
-				<span class="title">'<%= product.shortTitle %>'</span>
-				<span class="description">'<%= product.shortDescription %>'</span>
-				<span class="price">'<%= product.price %>'</span>
-				<span class="currency_code">'<%= product.currency_code %>'</span>
+				<span class="title"><%= product.shortTitle %></span>
+				<span class="description"><%= product.shortDescription %></span>
+				<span class="price"><%= product.price %></span>
+				<span class="currency_code"><%= product.currency_code %></span>
 			</div>
-		</textarea>	
+		</textarea>
+
+
+		<textarea id="search_product_template" style="display:none">
+			<input type="text" id="search-text" name="search-text" />
+			<button id="search_button">Search</button>
+		</textarea>
 		
+		<textarea id="search_sort_template" style="display:none">
+			<span id="sort_title">Sort By</span>
+			<select id="sort_by">
+				<option value="latest">Latest</option>
+				<option value="relevance">Relevance</option>
+				<option value="more_expensive">More Expensive</option>
+				<option value="cheaper">Cheaper</option>
+			</select>
+		</textarea>
+
 		<div id="show_waiting_message"><img src="img/loading.gif"/></div>
 		<div id="show_product"></div>
 		<div id="wrapper">
-			<div id="search">				
-				<div id="search_content">
-					<input type="text" id="search-text" name="search-text" />
-					<button id="search_button">Search</button>
-				</div>
-				<div id="sort_content">
-					<span id="sort_title">Sort By</span>
-					<select id="sort_by">
-						<option value="latest">Latest</option>
-						<option value="relevance">Relevance</option>
-						<option value="more_expensive">More Expensive</option>
-						<option value="cheaper">Cheaper</option>
-					</select>
-				</div>
-				<div class="clearfix"></div>
+			<div id="search">			
 			</div>
 			<div id="results">										
 			</div>

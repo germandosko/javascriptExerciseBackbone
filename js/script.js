@@ -32,11 +32,16 @@ var Views = {
 	ProductApp: Backbone.View.extend({
 		initialize: function() {
 			_.bindAll(this);
+			this.searchContent = new Views.Search();
+			this.searchContent.on('searchRequest', this.performSearch, this);
+			this.searchSortContent = new Views.SearchSort();			
 			this.collection = new Collections.Products();
 			this.collection.on('reset', this.showProducts, this);
 			this.performSearch();
 		},
 		render: function() {
+			this.$el.find('#search').append(this.searchContent.render().el);
+			this.$el.find('#search').append(this.searchSortContent.render().el);
 			this.showProducts();
 			return this;
 		},
@@ -50,11 +55,39 @@ var Views = {
 			return this;
 		},
 		performSearch: function(evdata) {
+			console.log(evdata);
 			evdata = evdata || {};
-			//console.log('VideosApp: entering performSearch - queryString: ' + evdata.queryString);
 			this.collection.fetch({data:{q:evdata.queryString}});
-			//console.log('VideosApp: leaving performSearch');
 		},		
+	}),
+
+	Search: Backbone.View.extend({
+		id: 'search_content',
+		events: {
+			'click #search_button': 'performSearch',
+		},
+		initialize: function() {
+			this.template = _.template($('#search_product_template').val());
+		},
+		render: function() {
+			this.$el.html(this.template());
+			return this;
+		},
+		performSearch: function(){
+			queryString = this.$el.find('#search-text').val();
+			this.trigger('searchRequest', {queryString:queryString});
+		},
+	}),
+
+	SearchSort: Backbone.View.extend({
+		id: 'sort_content',
+		initialize: function() {
+			this.template = _.template($('#search_sort_template').val());
+		},
+		render: function() {
+			this.$el.html(this.template());
+			return this;
+		},
 	}),
 };
 
