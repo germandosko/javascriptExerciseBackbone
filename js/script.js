@@ -5,7 +5,7 @@ var Models = {
 var Collections = {
 	Products: Backbone.Collection.extend({
 		model: Models.Product,
-		url: 'https://openapi.etsy.com/v2/listings/active.js?api_key=5ek4vq6nbjpzsyisap0n8woc&includes=Images:1&limit=20&page=1&sort_on=created&sort_order=up&callback=?',
+		url: Etsy.GetQueryUrl(),
 		parse: function(resp) {
 			for (var i=0;i<resp.results.length;i++){
 				resp.results[i].shortTitle = resp.results[i].title.substring(0,17);
@@ -55,9 +55,8 @@ var Views = {
 			return this;
 		},
 		performSearch: function(evdata) {
-			console.log(evdata);
-			evdata = evdata || {};
-			this.collection.fetch({data:{q:evdata.queryString}});
+			if(evdata) {Etsy.setKeywords(evdata.queryString)}
+			this.collection.fetch();
 		},		
 	}),
 
